@@ -26,7 +26,9 @@
     }
 
     todoList.innerHTML = '';
-    todos.forEach(todo => renderTodo(todo));
+    if (todos) {
+      todos.forEach(todo => renderTodo(todo));
+    }
   }
 
   // 2. Add a New Todo
@@ -42,11 +44,14 @@
       .select();
 
     if (error) {
-      console.error('Error adding task:', error.message);
+      console.error('Error adding task:', error);
+      alert('Supabase Error: ' + error.message);
       return;
     }
 
-    renderTodo(data[0]);
+    if (data && data.length > 0) {
+      renderTodo(data[0]);
+    }
     todoInput.value = '';
   }
 
@@ -59,6 +64,7 @@
 
     if (error) {
       console.error('Error updating task:', error.message);
+      alert('Supabase Error: ' + error.message);
       return;
     }
 
@@ -74,6 +80,7 @@
 
     if (error) {
       console.error('Error deleting task:', error.message);
+      alert('Supabase Error: ' + error.message);
       return;
     }
 
